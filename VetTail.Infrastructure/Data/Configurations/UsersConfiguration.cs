@@ -54,6 +54,11 @@ internal sealed class UsersConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("image")
             .IsRequired(false);
 
+        builder.Property(u => u.Hash)
+            .HasColumnName("sec_hash")
+            .IsRequired(false)
+            .HasDefaultValue(null);
+
         builder.HasIndex(u => u.Id, "pk_vet_users_id").IsUnique();
         builder.HasIndex(u => u.Email, "unique_vet_users_email").IsUnique();
         builder.HasIndex(u => u.Username, "unique_vet_users_username").IsUnique();
