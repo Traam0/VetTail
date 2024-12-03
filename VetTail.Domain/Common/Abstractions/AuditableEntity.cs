@@ -10,10 +10,12 @@ namespace VetTail.Domain.Common.Abstractions;
 
 public abstract class AuditableEntity : Entity
 {
-    public DateTime CreatedAt { get; } = DateTime.Now;
-    [AuditableProperty] public virtual DateTime UpdatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTime.Now;
+    public virtual DateTimeOffset UpdatedAt { get; set; }
 
-    protected virtual byte[] Hash()
+    public byte[]? Hash => this.CalculateSecHash();
+
+    protected virtual byte[]? CalculateSecHash()
     {
         IEnumerable<PropertyInfo> properties = this.GetType()
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -21,7 +23,8 @@ public abstract class AuditableEntity : Entity
     
         if(properties.Any())
         {
-            throw new NotSupportedException($"{this.GetType().Name} doesn't contain any Auditable Properties");
+            //throw new NotSupportedException($"{this.GetType().Name} doesn't contain any Auditable Properties");
+            return null;
         }
 
         StringBuilder hashBuilder = new();

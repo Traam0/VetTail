@@ -21,8 +21,7 @@ public class User : AuditableEntity
 
     public string? Phone { get; set; }
     public string? Image { get; set; }
-
     public DateOnly Birthdate { get; set; }
-
-    public new  byte[] Hash => Hash();
+    
+    [AuditableProperty] public new DateTimeOffset UpdatedAt { get; set; }
 }
