@@ -44,6 +44,7 @@ public abstract class AuditableEntity : Entity
         {
             byte @byte = bytes[i];
             int n, n1, n2;
+            n = @byte;
             n1 = n & 15;
             n2  = (n >> 4) & 15;
             if (n2 > 9) randoed.Append(n2 - 10 + 'A');
