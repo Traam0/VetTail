@@ -22,5 +22,5 @@ public class Client : AuditableEntity
     public string? City { get; set; }  
 
     public ICollection<Pet> Pets {  get; set; }    
-    public ICollection<ClientNotes> Notes { get;
+    public ICollection<ClientNotes> Notes { get; set;}
 } 
