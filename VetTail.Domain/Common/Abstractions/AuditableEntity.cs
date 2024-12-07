@@ -13,7 +13,7 @@ public abstract class AuditableEntity : Entity
     public DateTimeOffset CreatedAt { get; set; }
     public virtual DateTimeOffset? UpdatedAt{ get; set; }
 
-    public byte[]? Hash => null;
+    public byte[]? Hash => CalculateHash();
 
     protected byte[]? CalculateHash()
     {
