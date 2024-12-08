@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetTail.Domain", "VetTail.Domain\VetTail.Domain.csproj", "{22E94657-63A7-4741-BE64-078C2E37BD36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetTail.Infrastructure", "VetTail.Infrastructure\VetTail.Infrastructure.csproj", "{26C099A5-29FE-49DE-9088-4EBAFB4C2608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VetTail.Infrastructure", "VetTail.Infrastructure\VetTail.Infrastructure.csproj", "{26C099A5-29FE-49DE-9088-4EBAFB4C2608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VetTail.Application", "VetTail.Application\VetTail.Application.csproj", "{DA48175F-339F-4172-AC25-88385CE0E45C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{26C099A5-29FE-49DE-9088-4EBAFB4C2608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26C099A5-29FE-49DE-9088-4EBAFB4C2608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26C099A5-29FE-49DE-9088-4EBAFB4C2608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA48175F-339F-4172-AC25-88385CE0E45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA48175F-339F-4172-AC25-88385CE0E45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA48175F-339F-4172-AC25-88385CE0E45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA48175F-339F-4172-AC25-88385CE0E45C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
