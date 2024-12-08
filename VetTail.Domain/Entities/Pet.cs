@@ -20,7 +20,7 @@ public  class Pet : AuditableEntity
     public string? Color { get; set; }
 
     public DateOnly? DateRegistered { get; set; }
-    public DateTimeOffset DateOfBirth { get; set; }
+    public DateTimeOffset? DateOfBirth { get; set; }
 
     public ulong OwnerId { get; set; } 
     public Client Owner { get; set; }
