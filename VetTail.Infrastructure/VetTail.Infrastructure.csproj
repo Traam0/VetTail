@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VetTail.Domain\VetTail.Domain.csproj" />
+    <ProjectReference Include="..\VetTail.Application\VetTail.Application.csproj" />
   </ItemGroup>
 
 </Project>
