@@ -16,7 +16,7 @@ public  class Pet : AuditableEntity
 
     public required string Species { get; set; }
     public string? Breed { get; set; }
-    public string? MicroShipId { get; set; }
+    public string? MicroChipId { get; set; }
     public string? Color { get; set; }
 
     public DateOnly? DateRegistered { get; set; }
