@@ -20,4 +20,8 @@
     <ProjectReference Include="..\VetTail.Domain\VetTail.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\NewFolder\" />
+  </ItemGroup>
+
 </Project>
