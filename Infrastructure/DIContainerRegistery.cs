@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using VetTail.Infrastructure.Data.Interceptors;
 using VetTail.Infrastructure.Data.Persistance;
 
 namespace VetTail.Infrastructure;
@@ -10,7 +12,7 @@ public static partial class DIContainerRegistery
 {
     public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
-
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.RegisterDataBaseContxet(configuration);
         return services;
     }
@@ -22,6 +24,7 @@ public static partial class DIContainerRegistery
             string? connectionString = configuration.GetConnectionString("SqlServer") ;
 
             if (string.IsNullOrEmpty(connectionString)) throw new ArgumentException("missing connection string: SqlServer from");
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
             options.UseSqlServer(connectionString);
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
