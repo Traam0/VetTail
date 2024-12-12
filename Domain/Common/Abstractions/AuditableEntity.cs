@@ -12,7 +12,7 @@ public abstract class AuditableEntity
     public DateTimeOffset CreatedAt { get; set; }
     public virtual DateTimeOffset? UpdatedAt { get; set; }
 
-    protected bool TryGetSecurityHash(out string? hash)
+    public bool TryGetSecurityHash(out string? hash)
     {
         Span<PropertyInfo> properties = CollectionsMarshal.AsSpan(
             this.GetType()
