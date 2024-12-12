@@ -9,8 +9,8 @@ namespace VetTail.Domain.Common.Abstractions;
 
 public abstract class AuditableEntity
 {
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public virtual DateTimeOffset? UpdatedAt { get; set; }
 
     protected bool TryGetSecurityHash(out string? hash)
     {
