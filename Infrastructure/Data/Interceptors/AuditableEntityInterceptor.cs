@@ -45,10 +45,15 @@ public sealed class AuditableEntityInterceptor : SaveChangesInterceptor
                 {
                     if (entry.Entity.TryGetSecurityHash(out string? securityHash))
                     {
-                        entry.Entity.GetType()
+
+                        PropertyInfo? Hash = entry.Entity.GetType()
                             .GetProperties()
-                            .FirstOrDefault(p => p.Name == "Hash")
-                            ?.SetValue(entry.Entity, securityHash);
+                            .FirstOrDefault(p => p.Name == "Hash");
+
+                        if(Hash != null && securityHash != null && securityHash.Equals(Hash.GetValue(entry.Entity)))
+                        {
+                            Hash.SetValue(entry.Entity, securityHash);
+                        }
                     }
 
                     entry.Entity.UpdatedAt = utcNow;
