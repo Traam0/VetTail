@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using VetTail.Domain.Common.Interfaces;
+using VetTail.Infrastructure.Common.Repositories;
 using VetTail.Infrastructure.Data.Interceptors;
 using VetTail.Infrastructure.Data.Persistance;
 
@@ -12,6 +14,9 @@ public static partial class DIContainerRegistery
 {
     public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.RegisterDataBaseContxet(configuration);
         return services;
