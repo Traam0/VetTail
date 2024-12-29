@@ -373,3 +373,4 @@ appsettings.json
 appsettings.Development.json
 appsettings.*.json
 secrets.json
+/appsettings.json
