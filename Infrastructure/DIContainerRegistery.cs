@@ -1,24 +1,44 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using VetTail.Domain.Common.Interfaces;
+using VetTail.Domain.Entities;
 using VetTail.Infrastructure.Common.Repositories;
 using VetTail.Infrastructure.Data.Interceptors;
 using VetTail.Infrastructure.Data.Persistance;
 
-namespace VetTail.Infrastructure;
+namespace VetTail.DIRegistery;
 
 public static partial class DIContainerRegistery
 {
-    public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection RegisterInfrastructureLayer(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.RegisterDataBaseContxet(configuration);
+        services.AddIdentity<User, IdentityRole<ulong>>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+        })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.Name = "Vetail.ATS";
+            options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            options.Cookie.HttpOnly = true;
+            options.LoginPath = "/auth/login";
+            options.LogoutPath = "/auth/logout";
+            options.AccessDeniedPath = "/auth/denied";
+            options.SlidingExpiration = true;
+        });
+
         return services;
     }
 
