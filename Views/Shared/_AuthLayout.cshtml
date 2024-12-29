@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - VetTail</title>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="~/js/site.js" asp-append-version="true" defer></script>
+    <script type="text/javascript" src="~/js/theme.js" asp-append-version="true" defer></script>
+</head>
+
+<body>
+    <main role="main" 
+        class="relative flex h-dvh w-dvw flex-col items-center justify-center overflow-hidden bg-background dark:bg-dark-background dark:text-white">
+
+        <div class="aurora z-0 bg-opacity-80 absolute inset-0 h-full w-full"
+             style="background-image:radial-gradient(100% 125% at 50% 0%, #030a06 50%, #b275aa)">
+            <div class="dotted-bg backdrop-opacity-0 opacity-60"></div>
+        </div>
+        @RenderBody()
+    </main>
+
+</body>
+</html>
