@@ -1,0 +1,78 @@
+﻿@using VetTail.Models.Requests.Authentication;
+@model LoginRequestViewModel
+
+@{
+    this.ViewData["Title"] = "Login";
+    this.Layout = "_AuthLayout";
+    object user = new
+    {
+        data = ViewData.ModelState
+    };
+}
+
+<script>
+    const obj = @Html.Raw(Json.Serialize(user));
+    console.log(obj);
+</script>
+<div class="text-text relative grid h-full w-full place-content-center overflow-hidden">
+    <form method="post" 
+        asp-controller="Auth"
+        asp-action="Login"
+        class="z-10 border-2 bg-dark-foreground/30 border-dark-border flex w-dvw max-w-lg flex-col items-center justify-center gap-6 rounded-lg border-border p-4 px-8 py-10 backdrop-blur-[2px]">
+        
+        <header class="flex flex-col items-center justify-center gap-2 text-center">
+            <a asp-controller="Home" asp-action="Index" class="px-2 focus-visible:appearance-none">
+                <h1 class="bg-gradient-to-br from-primary-dark to-primary-light bg-clip-text text-4xl font-bold text-transparent">VET TAIL</h1>
+            </a>
+            <p class="text-sm text-zinc-200">Simplifying Veterinary Practice Management.</p>
+        </header>
+
+        <section role="group" class="flex w-full flex-col gap-4">
+            <label asp-for=Username class="flex flex-col gap-1.5 text-zinc-200">
+                Username
+                <input asp-for="Username" placeholder="john.doe" class="bg-dark-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary-dark focus:ring-offset-dark-background" />
+                @if (ViewData.ModelState["Username"]?.Errors.Count is not null or 0)
+                {
+                    <span class="text-sm font-medium text-error" asp-validation-for="Username"></span>
+                }
+            </label>
+
+            <label asp-for=Password class="flex flex-col gap-1.5 text-zinc-200">
+                Password
+                <input asp-for="Password" placeholder="********" class="bg-dark-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-primary-dark focus:ring-offset-dark-background" />
+                @if (ViewData.ModelState["Password"]?.Errors.Count is not null or 0)
+                {
+                    <span class="text-sm font-medium text-error" asp-validation-for="Password"></span>
+                }
+
+            </label>
+
+            <div class="flex items-center justify-start gap-1.5 text-zinc-200">
+
+                <label class="relative flex cursor-pointer items-center" asp-for="RememberMe">
+                    <input asp-for="RememberMe"
+                           checked
+                           class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow transition-all checked:bg-primary-dark checked:border-slate-800 hover:shadow-md" />
+                    <span class="opacity-0 -translate-x-1/2 -translate-y-1/2 absolute left-1/2 top-1/2 transform text-white peer-checked:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor"
+                             stroke="currentColor" stroke-width="1">
+                            <path fill-rule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                </label>
+                    Remember Me
+            </div>
+
+          
+        </section>
+
+        <button type="submit" class="w-full rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-content">continue</button>
+        
+        <p class="text-dark-copy-lighter text-sm">
+            By clicking continue, you agree to our <a asp-controller="Home" asp-action="Policy" class="font-medium underline hover:cursor-pointer">terms and conditions</a>
+        </p>
+    </form>
+</div>
+
