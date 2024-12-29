@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+# Node.js lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# .NET configuration files
+appsettings.json
+appsettings.Development.json
+appsettings.*.json
+secrets.json
