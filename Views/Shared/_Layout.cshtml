@@ -1,49 +1,44 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - VetTail</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/VetTail.styles.css" asp-append-version="true" />
+    <title>VetTail - @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+    <script src="~/js/theme.js" defer asp-append-version="true"></script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VetTail</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - VetTail - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+<body class="scrollbar-none h-dvh w-dvw overflow-hidden overflow-y-scroll bg-background">
+    <nav class="justtify-center flex h-16 items-center gap-8 bg-white px-8 py-4">
+        <h1 class="font-black text-2xl text-primary">VetTail</h1>
+
+        <section class="flex-1 flex items-center justify-center gap-4 text-base">
+            <a href="#" class="relative origin-center px-2 py-2 before:transition-all before:duration-150 before:ease-in before:absolute before:inset-0 before:border-b-2 before:border-b-primary before:origin-center before:scale-x-0 hover:before:scale-x-100">About Us</a>
+            <a href="#" class="relative origin-center px-2 py-2 before:transition-all before:duration-150 before:ease-in before:absolute before:inset-0 before:border-b-2 before:border-b-primary before:origin-center before:scale-x-0 hover:before:scale-x-100">Features</a>
+            <a href="#" class="relative origin-center px-2 py-2 before:transition-all before:duration-150 before:ease-in before:absolute before:inset-0 before:border-b-2 before:border-b-primary before:origin-center before:scale-x-0 hover:before:scale-x-100">Support</a>
+            <a href="#" class="relative origin-center px-2 py-2 before:transition-all before:duration-150 before:ease-in before:absolute before:inset-0 before:border-b-2 before:border-b-primary before:origin-center before:scale-x-0 hover:before:scale-x-100">Blog</a>
+        </section>
+
+        <section role="group" class="flex items-center justify-center gap-2">
+            @if (User.Identity?.IsAuthenticated is true)
+            {
+                <a href="#" class="border-2 rounded-lg border-border bg-primary px-3 py-2 text-primary-content">Dashboard</a>
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login" class="border-2 rounded-lg border-border bg-primary px-5 py-2 text-primary-content">Login</a>
+            }
+        </section>
+    </nav>
+    <main class="">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white py-6">
+
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
