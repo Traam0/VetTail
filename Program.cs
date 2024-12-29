@@ -12,6 +12,7 @@ namespace VetTail
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.RegisterApplicationLayer();
             builder.Services.RegisterInfrastructureLayer(builder.Configuration);
             builder.Services.AddControllersWithViews();
 
@@ -30,6 +31,7 @@ namespace VetTail
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
