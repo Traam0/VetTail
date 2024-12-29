@@ -18,12 +18,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Common\Interfaces\" />
-    <Folder Include="Application\Common\Pipelines\" />
-    <Folder Include="Application\Services\" />
-  </ItemGroup>
-
 <!--<Target Name="BuildTailwind" BeforeTargets="Compile;Build;PrepareForHotReload">
   <Exec Command="npm run build:css" />
 </Target>-->
