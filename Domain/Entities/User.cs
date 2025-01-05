@@ -10,4 +10,6 @@ public sealed class User : IdentityUser<ulong>
 {
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
+    
+    public UserProfile? Profile { get; set; }
 }
