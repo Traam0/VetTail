@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetTail.Infrastructure.Data.Persistance;
 
@@ -11,9 +12,11 @@ using VetTail.Infrastructure.Data.Persistance;
 namespace VetTail.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241226223509_ClientBase")]
+    partial class ClientBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace VetTail.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.Property<decimal>("CategoriesId")
-                        .HasColumnType("decimal(20,0)");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CategoriesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("vet_products_categories", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<ulong>", b =>
                 {
@@ -170,165 +158,52 @@ namespace VetTail.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProductSupplier", b =>
-                {
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SuppliersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProductsId", "SuppliersId");
-
-                    b.HasIndex("SuppliersId");
-
-                    b.ToTable("vet_products-suppliers", (string)null);
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.Category", b =>
+            modelBuilder.Entity("VetTail.Domain.Entities.Client", b =>
                 {
                     b.Property<decimal>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
-                        .HasColumnName("_id");
+                        .HasColumnType("decimal(20,0)");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<decimal>("Id"));
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("category_description");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("category_name");
-
-                    b.HasKey("Id")
-                        .HasName("pk-vet_categories-id");
-
-                    b.ToTable("vet_categories", (string)null);
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("_id");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("product_description");
-
-                    b.Property<DateOnly?>("ExpiryDate")
-                        .HasColumnType("date")
-                        .HasColumnName("expiry_date");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("product_name");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("DECIMAL(10,2)")
-                        .HasColumnName("unit_price");
-
-                    b.Property<long>("Stock")
-                        .HasColumnType("bigint")
-                        .HasColumnName("stock");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("pk-vet_products-id");
-
-                    b.ToTable("vet_products", (string)null);
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.StockMovement", b =>
-                {
-                    b.Property<decimal>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(20,0)")
-                        .HasColumnName("_id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<decimal>("Id"));
-
-                    b.Property<DateTime>("MovementTimeStamp")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("movement_time");
-
-                    b.Property<string>("MovementType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("ADD")
-                        .HasColumnName("movement_type");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint")
-                        .HasColumnName("quantity");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("movement_reason");
-
-                    b.Property<Guid?>("SupplierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id")
-                        .HasName("pk-vet_stock_movements-id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("vet_stock_movements", (string)null);
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.Supplier", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("_id");
+                    b.Property<int>("AccountStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("supplier_address");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("supplier_email_address");
-
-                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("supplier_name");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("supplier_phone_number");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.HasKey("Id")
-                        .HasName("pk-vet_suppliers-id");
+                    b.HasKey("Id");
 
-                    b.ToTable("vet_suppliers", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("VetTail.Domain.Entities.User", b =>
@@ -380,9 +255,6 @@ namespace VetTail.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<decimal?>("ProfileUserId")
-                        .HasColumnType("decimal(20,0)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -407,8 +279,6 @@ namespace VetTail.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("ProfileUserId");
 
                     b.HasIndex(new[] { "Email" }, "unique-vet_users_email_address")
                         .IsUnique()
@@ -473,21 +343,6 @@ namespace VetTail.Migrations
                     b.ToTable("vet_user_profiles", (string)null);
                 });
 
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.HasOne("VetTail.Domain.Entities.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VetTail.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<ulong>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<ulong>", null)
@@ -539,49 +394,6 @@ namespace VetTail.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProductSupplier", b =>
-                {
-                    b.HasOne("VetTail.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VetTail.Domain.Entities.Supplier", null)
-                        .WithMany()
-                        .HasForeignKey("SuppliersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.StockMovement", b =>
-                {
-                    b.HasOne("VetTail.Domain.Entities.Product", "Product")
-                        .WithMany("StockMovements")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk-vet_products-vet-stock_movments-product_id");
-
-                    b.HasOne("VetTail.Domain.Entities.Supplier", "Supplier")
-                        .WithMany("StockMovements")
-                        .HasForeignKey("SupplierId")
-                        .HasConstraintName("fk-stock_movements-vet_suppliers-supplier_id");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.User", b =>
-                {
-                    b.HasOne("VetTail.Domain.Entities.UserProfile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileUserId");
-
-                    b.Navigation("Profile");
-                });
-
             modelBuilder.Entity("VetTail.Domain.Entities.UserProfile", b =>
                 {
                     b.HasOne("VetTail.Domain.Entities.User", "User")
@@ -592,16 +404,6 @@ namespace VetTail.Migrations
                         .HasConstraintName("fk-vet_users-vet_user_profliles-user_id");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.Product", b =>
-                {
-                    b.Navigation("StockMovements");
-                });
-
-            modelBuilder.Entity("VetTail.Domain.Entities.Supplier", b =>
-                {
-                    b.Navigation("StockMovements");
                 });
 #pragma warning restore 612, 618
         }
