@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VetTail.DIRegistery;
+using VetTail.Conventions;
 
 namespace VetTail
 {
@@ -14,7 +15,10 @@ namespace VetTail
             // Add services to the container.
             builder.Services.RegisterApplicationLayer();
             builder.Services.RegisterInfrastructureLayer(builder.Configuration);
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(configuration =>
+            {
+                configuration.Conventions.Add(new AuthorizeByDefaultConvention());
+            });
 
             var app = builder.Build();
 
