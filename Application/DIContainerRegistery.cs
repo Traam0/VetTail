@@ -9,10 +9,6 @@ public static partial class DIContainerRegistery
     {
         services.AddAutoMapper(typeof(Program).Assembly);
         services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
-        });
 
         return services;
     }

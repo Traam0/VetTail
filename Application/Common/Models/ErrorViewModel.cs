@@ -1,4 +1,4 @@
-namespace VetTail.Models
+namespace VetTail.Application.Common.Models
 {
     public class ErrorViewModel
     {

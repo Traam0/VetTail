@@ -1,14 +1,10 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
 using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
-using VetTail.Application.Commands.Authentication;
+using VetTail.Application.Common.Interfaces;
 using VetTail.Domain.Common.Exceptions;
 using VetTail.Domain.Entities;
 using VetTail.Models.Requests.Authentication;
@@ -19,13 +15,13 @@ public class AuthController : Controller
 {
 
     private readonly ILogger<AuthController> logger;
+    private readonly IAuthenticationService authService;
     private readonly SignInManager<User> signInManager;
-    private readonly IMediator mediator;
 
-    public AuthController(IMediator mediator, SignInManager<User> signInManager, ILogger<AuthController> logger)
+    public AuthController(IAuthenticationService authService, SignInManager<User> signInManager, ILogger<AuthController> logger)
     {
         this.logger = logger;
-        this.mediator = mediator;
+        this.authService = authService;
         this.signInManager = signInManager;
     }
 
@@ -49,8 +45,7 @@ public class AuthController : Controller
                 return View(credentials);
             }
 
-            LoginUserCommand command = new LoginUserCommand(credentials.Username, credentials.Password);
-            User user = await this.mediator.Send(command);
+            User user = await this.authService.LoginUser(credentials.Username, credentials.Password, cancellationToken);
             await this.signInManager.SignInAsync(user, credentials.RememberMe);
             return RedirectToAction("Index", "Home");
         }

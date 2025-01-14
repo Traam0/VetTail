@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VetTail.Models.Requests.Authentication;
+namespace VetTail.Application.Common.Models.Requests.Authentication;
 
 public class LoginRequestViewModel
 {
     [Required(ErrorMessage = $"{nameof(Username)} is required.")]
-    [MinLength(3, ErrorMessage =$"{nameof(Username)} must be at least 3 characters long.")]
+    [MinLength(3, ErrorMessage = $"{nameof(Username)} must be at least 3 characters long.")]
     public required string Username { get; set; }
 
     [Required(ErrorMessage = $"{nameof(Password)} is required.")]

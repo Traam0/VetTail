@@ -2,7 +2,7 @@
 using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using System.ComponentModel.DataAnnotations;
 
-namespace VetTail.Models.Requests.Authentication;
+namespace VetTail.Application.Common.Models.Requests.Authentication;
 
 public class SignUpRequestViewModel
 {
