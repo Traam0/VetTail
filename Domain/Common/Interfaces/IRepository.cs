@@ -5,7 +5,7 @@ using VetTail.Domain.Common.Abstractions;
 
 namespace VetTail.Domain.Common.Interfaces;
 
-public interface IRepository<TEntity, in TKey> where TEntity : AuditableEntity where TKey : notnull
+public interface IRepository<TEntity, in TKey> where TEntity : class where TKey : notnull
 {
     Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<IEnumerable<TEntity>> GetAllAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);

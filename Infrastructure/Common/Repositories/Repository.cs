@@ -11,7 +11,7 @@ using System.Linq;
 namespace VetTail.Infrastructure.Common.Repositories;
 
 
-public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : AuditableEntity where TKey : notnull
+public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class where TKey : notnull
 {
     private readonly ApplicationDbContext context;
 

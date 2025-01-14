@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VetTail.Domain.Entities;
-using VetTail.Models.Requests.Clients;
 
 namespace VetTail.Infrastructure.Data.Persistance;
 
