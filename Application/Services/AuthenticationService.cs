@@ -9,7 +9,7 @@ using VetTail.Domain.Entities;
 
 namespace VetTail.Application.Services;
 
-public class AuthenticationService : IAuthenticationServices
+public class AuthenticationService : IAuthenticationService
 {
     private readonly UserManager<User> userManager;
     private readonly SignInManager<User> signInManager;

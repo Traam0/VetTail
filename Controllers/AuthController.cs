@@ -5,9 +5,9 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using VetTail.Application.Common.Interfaces;
+using VetTail.Application.Common.Models.Requests.Authentication;
 using VetTail.Domain.Common.Exceptions;
 using VetTail.Domain.Entities;
-using VetTail.Models.Requests.Authentication;
 
 namespace VetTail.Controllers;
 
