@@ -1,5 +1,4 @@
-﻿@    using VetTail.Models.Requests.Authentication;
-    using VetTail.Application.Common.Models.Requests.Authentication;
+﻿@using VetTail.Application.Common.Models.Requests.Authentication;
 @model SignUpRequestViewModel;
 @{    
     this.ViewData["Title"] = "SignUp";
@@ -11,11 +10,11 @@
     <form method="post"
         asp-controller="Auth"
           asp-action="SignUp"
-          class="z-10 border-2 bg-background/30 border-gray-500/30 flex w-dvw max-w-md flex-col items-center justify-center gap-6 rounded-lg border-border p-4 px-8 py-10 backdrop-blur-[2px] dark:bg-dark-foreground/30 dark:border-dark-border lg:max-w-xl">
+          class="z-10 border-2 bg-background/30 border-gray-500/30 border-border flex w-dvw max-w-md flex-col items-center justify-center gap-6 rounded-lg p-4 px-8 py-10 backdrop-blur-[2px] dark:bg-dark-foreground/30 dark:border-dark-border lg:max-w-xl">
 
         <header class="flex flex-col items-center justify-center gap-2 text-center">
             <a asp-controller="Home" asp-action="Index" class="px-2 focus-visible:appearance-none">
-                <h1 class="bg-gradient-to-br from-primary-dark to-primary-light bg-clip-text text-4xl font-bold text-transparent">VET TAIL</h1>
+                <h1 class="from-primary-dark to-primary-light bg-gradient-to-br bg-clip-text text-4xl font-bold text-transparent">VET TAIL</h1>
             </a>
             <p class="text-sm text-zinc-200">Simplifying Veterinary Practice Management.</p>
         </header>
@@ -23,40 +22,40 @@
 
         @if (ViewBag.Error != null)
         {
-            <div class="w-full rounded-xl bg-error px-3 py-1.5 text-center text-sm text-error-content">
+            <div class="bg-error text-error-content w-full rounded-xl px-3 py-1.5 text-center text-sm">
                 • @ViewBag.Error
             </div>
         }
         <section role="group" class="flex w-full flex-col gap-4">
             <label asp-for=UserName class="flex flex-col gap-1.5 text-zinc-200">
                 Username
-                <input asp-for="UserName" placeholder="john.doe" class="rounded-md bg-foreground px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
+                <input asp-for="UserName" placeholder="john.doe" class="bg-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
                 <span class="text-sm font-medium text-red-500" asp-validation-for="UserName"></span>
             </label>
 
             <label asp-for=Email class="flex flex-col gap-1.5 text-zinc-200">
                 Email
-                <input asp-for="Email" placeholder="john.doe@examplae.com" class="rounded-md bg-foreground px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
+                <input asp-for="Email" placeholder="john.doe@examplae.com" class="bg-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
                 <span class="text-sm font-medium text-red-500" asp-validation-for="Email"></span>
             </label>
 
             <div class="flex w-full items-start justify-center gap-4">
                 <label asp-for=Password class="flex-1 flex flex-col gap-1.5 text-zinc-200">
                     Password
-                    <input asp-for="Password" placeholder="********" class="rounded-md bg-foreground px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
+                    <input asp-for="Password" placeholder="********" class="bg-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
                     <span class="text-sm font-medium text-red-500" asp-validation-for="ConfirmPassword"></span>
                 </label>
                 <label asp-for=ConfirmPassword class="flex-1 flex flex-col gap-1.5 text-zinc-200">
                     Confirm Password
-                    <input asp-for="ConfirmPassword" placeholder="********" class="rounded-md bg-foreground px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
+                    <input asp-for="ConfirmPassword" placeholder="********" class="bg-foreground rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light focus:ring-offset-background dark:bg-dark-foreground dark:focus:ring-primary-dark dark:focus:ring-offset-dark-background" />
                     <span class="text-sm font-medium text-red-500" asp-validation-for="ConfirmPassword"></span>
                 </label>
             </div>
         </section>
         
 
-        <button type="submit" class="w-full rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-content">continue</button>
-        <p class="text-sm text-copy-light dark:text-dark-copy-lighter">
+        <button type="submit" class="bg-primary text-primary-content w-full rounded-lg px-5 py-2.5 font-medium">continue</button>
+        <p class="text-copy-light text-sm dark:text-dark-copy-lighter">
             By clicking continue, you agree to our <a asp-controller="Home" asp-action="Privacy" class="font-medium underline hover:cursor-pointer">terms and conditions.</a>
         </p>    
     </form>

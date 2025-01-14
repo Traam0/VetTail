@@ -1,0 +1,135 @@
+﻿@using VetTail.Application.Common.Models.Inventory;
+@model InventoryViewModel;
+@{
+    ViewData["Title"] = "Products";
+    this.Layout = "_DashboardLayout";
+}
+<script src="~/js/products.js" defer></script>
+<div class="bg-background sticky top-0 flex flex-col gap-2">
+    <h2 class="text-2xl font-semibold tracking-wide">Catgories</h2>
+
+    <div class="flex items-center justify-start gap-2 overflow-x-scroll">
+        @foreach (var category in Model.Categories)
+        {
+            <div id="category-@category.Id" class="border-border to-background cursor-pointer rounded-lg border bg-gradient-to-r from-white px-5 py-2.5 shadow-sm even:from-background even:to-white">@category.Name</div>    
+        }
+    </div>
+</div>
+
+
+<div class="space-y-2 overflow-hidden rounded-lg">
+    <div class="space-y-2 overflow-hidden overflow-x-auto">
+        <div class="flex items-center justify-end px-2 text-sm font-medium">@Model.Products.Display()</div>
+        <table class="divide-border min-w-full divide-y">
+            <thead>
+                <tr class="text-primary-content bg-gray-100">
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">Name</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">description</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">stock</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">unit price</th>
+                    <th scope="col" class="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">expires at</th>
+                    <th scope="col" class="px-6 py-3 text-end text-xs font-medium uppercase text-gray-500">action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var product in Model.Products.Items)
+                {
+                    <tr class="odd:bg-foreground even:bg-white">
+                        <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-800">@product.Name</td>
+                        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-800">@product.Description</td>
+                        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                            @if (product.Stock.Equals(0))
+                            {
+                                <span class="font-semibold capitalize text-red-500">Out of stock</span>
+                            } 
+                            else if(product.Stock <= 15)
+                            {
+                                <span class="font-semibold capitalize text-orange-500">@product.Stock</span>
+                            }
+                            else
+                            {
+                                @product.Stock;
+                            }
+                        </td >
+                        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-800">@product.Price DH</td>
+                        <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-800">@(product.ExpiryDate?.ToString() ?? "Never")</td>
+                        <td class="whitespace-nowrap px-6 py-4 text-end text-sm font-medium">
+                            <button data-modal-binding="product-modal" data-product-id="@product.Id" class="text-primary inline-flex items-center gap-x-2 rounded-lg border border-transparent text-sm font-semibold hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Show</button>
+                            <button type="button" class="inline-flex items-center gap-x-2 rounded-lg border border-transparent text-sm font-semibold text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Details</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <nav aria-label="Page navigation" class="flex items-center justify-end">
+              <ul class="inline-flex -space-x-px text-sm">
+                    <li class="@(Model.Products.HasPrevPage ? string.Empty : "cursor-not-allowed" )">
+                    <a asp-controller="inventory" asp-action="index" asp-route-pageSize="@Model.Products.Size" asp-route-page="@(Model.Products.PageNumber - 1)" class="@(Model.Products.HasPrevPage ? "cursor-pointer" : "cursor-not-allowed pointer-events-none") border-e-0 border-border ms-0 flex h-8 items-center justify-center rounded-s-lg border bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">Previous</a>
+                    </li>
+                    @if (Model.Products.PageNumber > 5){
+                        for (int i = Model.Products.PageNumber - 2; i <= Math.Min(Model.Products.PageNumber + 2, Model.Products.TotalPages); i++)
+                        {
+                            <li>
+                                <a asp-controller="inventory" asp-action="index" asp-route-pageSize="@Model.Products.Size" asp-route-page="@i" class="border-border flex h-8 items-center justify-center rounded-e-lg border bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">@i</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+
+                        for (int i = 1; i <= Math.Min(5, Model.Products.TotalPages); i++)
+                        {
+                            <li class="cursor-not-allowed">
+                            <a asp-controller="inventory" asp-action="index" asp-route-pageSize="@Model.Products.Size" asp-route-page="@i" class="@(Model.Products.PageNumber == i ? "bg-primary-light text-primary-content" : "bg-white text-gray-700") border-border flex h-8 items-center justify-center border px-3 leading-tight hover:bg-border hover:text-gray-700">@i</a>
+                            </li>
+                        }
+                        
+
+                    }
+                    <li class="@(Model.Products.HasNextPage ? string.Empty : "cursor-not-allowed" )">
+                        <a asp-controller="inventory" asp-action="index" asp-route-pageSize="@Model.Products.Size" asp-route-page="@(Model.Products.PageNumber + 1)" class="@(Model.Products.HasNextPage ? "cursor-pointer" : "cursor-not-allowed pointer-events-none") border-border flex h-8 items-center justify-center rounded-e-lg border bg-white px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700">Next</a>
+                    </li>
+              </ul>
+        </nav>
+    </div>
+</div>
+
+
+<dialog data-modal="product-modal" class="-translate-y-1/2 -translate-x-1/2 boder-border border-2 relative left-1/2 top-1/2 w-full max-w-md rounded-lg p-8 shadow-md backdrop:backdrop-blur-[2px] backdrop:bg-black/30">
+    <button data-modal-close class="bg-error text-error-content absolute right-0 top-0 rounded-bl-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
+    </button>
+    
+    <div class="flex flex-col gap-4">
+        <header class="flex items-center justify-between gap-3 text-2xl font-semibold">
+            <h2 class="flex flex-col gap-0.5 tracking-wide">
+                {{name}}
+                <span class="w-fit rounded-full bg-gray-300 px-2 py-1 text-xs font-normal capitalize">in stock</span>
+            </h2>
+            <p class="text-success">${{price}}</p>
+        </header>
+        <hr />
+        <div class="flex flex-col gap-2 font-normal">
+            <p id="product-description">{{description}}</p>
+            <div class="flex items-center justify-between">
+
+                <p class="product-stock flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-stack-2"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 4l-8 4l8 4l8 -4l-8 -4" /><path d="M4 12l8 4l8 -4" /><path d="M4 16l8 4l8 -4" /></svg>
+                    Stock: {{stock}}
+                </p>
+
+                <p class="product-stock flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>
+
+                    Expires: {{expiryDate}}
+                </p>
+            </div>
+            <p class="product-stock flex w-full items-center gap-1 break-words">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-truck-delivery"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /><path d="M3 9l4 0" /></svg>
+                Supplier: Green Fields Organic Co. (info@greenfields.com)
+            </p>
+        </div>
+    </div>
+</dialog>
