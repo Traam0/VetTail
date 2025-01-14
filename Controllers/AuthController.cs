@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Authentication;
@@ -11,6 +12,7 @@ using VetTail.Domain.Entities;
 
 namespace VetTail.Controllers;
 
+[AllowAnonymous]
 public class AuthController : Controller
 {
 
@@ -24,6 +26,7 @@ public class AuthController : Controller
         this.authService = authService;
         this.signInManager = signInManager;
     }
+
 
     public ActionResult Login()
     {
@@ -91,6 +94,7 @@ public class AuthController : Controller
 
     }
 
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         if (this.User.Identity?.IsAuthenticated is false)

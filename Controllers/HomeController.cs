@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using VetTail.Models;
+using VetTail.Application.Common.Models;
 
 namespace VetTail.Controllers
 {
